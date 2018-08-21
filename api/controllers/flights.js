@@ -2,21 +2,24 @@ const mongoose = require("mongoose");
 const Flight = require("../models/flight");
 
 exports.flights_get_all = (req, res, next) => {
-  Flight.find()
-    .select("_id identifier title pilot club")
+  Flight.find({})
+    .select("_id identifier title pilot club total durationNum duration")
     .limit(10)
     .exec()
     .then(docs => {
       const response = {
         count: docs.length,
         flights: docs.map(doc => {
-          let {_id, identifier, pilot, club, title} = doc;
+          let {_id, identifier, pilot, club, title, total, durationNum, duration} = doc;
           return {
             _id,
             identifier,
             pilot,
             title,
             club,
+            total,
+            durationNum,
+            duration,
             request: {
               type: "GET",
               url: "http://localhost:3000/flights/" + doc._id
