@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const flightSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -28,5 +29,7 @@ const flightSchema = mongoose.Schema({
     avgSpeedCourse: Number,
     avgSpeedTrack: Number,
 });
+
+flightSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Flight', flightSchema);
