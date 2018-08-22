@@ -30,6 +30,7 @@ const flightSchema = mongoose.Schema({
     avgSpeedTrack: Number,
 });
 
+// flightSchema.set('autoIndex', false);
 flightSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Flight', flightSchema);

@@ -6,7 +6,7 @@ const FlightsController = require('../controllers/flights');
 
 // Handle incoming GET requests to /flights
 // router.get("/", checkAuth, FlightsController.flights_get_all);
-router.get("/", FlightsController.flights_get_all);
+router.post("/", FlightsController.flights_get_all);
 
 // router.get("/:flightId", checkAuth, FlightsController.flights_get_flight);
 router.get("/:flightId", FlightsController.flights_get_flight);
