@@ -9,6 +9,8 @@ exports.flights_get_all = (req, res, next) => {
         limit: parseInt(req.body.limit),
     };
 
+    console.log(req.body);
+
     let query = {};
 
     if(req.body.pilot) query.pilot = req.body.pilot;
@@ -52,3 +54,22 @@ exports.flights_get_flight = (req, res, next) => {
             res.status(500).json({ error: err });
         });
 };
+
+exports.get_pilots = (req, res, next) => {
+    // Flight.find({}).distinct('pilot', (err, pilots) => console.log(pilots));
+
+    Flight.find({})
+        .select('pilot')
+        .exec()
+        .then(docs => {
+            console.log(docs)
+            res.status(200).json({
+                count: docs.length,
+                pilots: docs
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        })
+}
