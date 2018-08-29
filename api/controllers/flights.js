@@ -97,20 +97,11 @@ exports.flights_get_flight = (req, res, next) => {
 };
 
 exports.get_pilots = (req, res, next) => {
-    // Flight.find({}).distinct('pilot', (err, pilots) => console.log(pilots));
-
-    Flight.find({})
-        .select('pilot')
-        .exec()
-        .then(docs => {
-            console.log(docs)
-            res.status(200).json({
-                count: docs.length,
-                pilots: docs
-            });
+    Flight.find({}).distinct('pilot', (err, pilots) => 
+    {
+        console.log(pilots);
+        res.status(200).json({
+            pilots: pilots
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: err });
-        })
+    });
 }
