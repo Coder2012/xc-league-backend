@@ -19,8 +19,8 @@ exports.flights_get_all = (req, res, next) => {
     let type = req.body.responseType;
 
     Flight.paginate(query, options).then(function (result) {
-        let response = responses[type](result);
-        res.status(200).json(response);
+        let flights = responses[type](result);
+        res.status(200).json(flights);
     })
     .catch(err => {
         console.log(err);
@@ -44,8 +44,12 @@ exports.flights_get_date = (req, res, next) => {
     let type = req.body.responseType;
 
     Flight.paginate(query, options).then(function (result) {
-        let response = responses[type](result);
-        res.status(200).json(response);
+        let flights = responses[type](result);
+        res.status(200).json({
+            flightData: flights,
+            pages: result.pages,
+            total: result.total
+        });
     })
     .catch(err => {
         console.log(err);
