@@ -20,7 +20,11 @@ exports.flights_get_all = (req, res, next) => {
 
     Flight.paginate(query, options).then(function (result) {
         let flights = responses[type](result);
-        res.status(200).json(flights);
+        res.status(200).json({
+            flightData: flights,
+            pages: result.pages,
+            total: result.total
+        });
     })
     .catch(err => {
         console.log(err);
