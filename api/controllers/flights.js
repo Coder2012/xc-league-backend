@@ -15,7 +15,8 @@ exports.flights_get_all = (req, res, next) => {
 
     if(req.body.pilot) query.pilot = req.body.pilot;
     if(req.body.glider) query.glider = req.body.glider;
-    if(req.body.totalMin && req.body.totalMax) query.total = { $gte: parseInt(req.body.totalMin), $lte: parseInt(req.body.totalMax) };
+    if(req.body.distance) query.total = { $gte: parseInt(req.body.distance)};
+    if(req.body.height) query.maxHeight = { $gte: parseInt(req.body.height)};
     let type = req.body.responseType;
 
     Flight.paginate(query, options).then(function (result) {
