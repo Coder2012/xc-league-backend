@@ -50,11 +50,7 @@ module.exports = {
                     maxClimb,
                     minClimb,
                     maxSpeed,
-                    avgSpeedCourse,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:3000/flights/" + doc._id
-                    }
+                    avgSpeedCourse
                 }
             })
         }
@@ -77,11 +73,7 @@ module.exports = {
                     pilot,
                     date,
                     total,
-                    score,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:3000/flights/" + doc._id
-                    }
+                    score
                 }
             })
         }
