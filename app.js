@@ -9,8 +9,7 @@ const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
 const flightRoutes = require('./api/routes/flights');
 
-// const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
-const pwd = encodeURIComponent('Kevlar#1');
+const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
 
 mongoose.connect(
   `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true`
