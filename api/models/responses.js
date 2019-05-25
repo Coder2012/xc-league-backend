@@ -26,6 +26,7 @@ module.exports = {
                     minClimb,
                     maxSpeed,
                     avgSpeedCourse,
+                    link,
                 } = doc;
     
                 return {
@@ -50,7 +51,8 @@ module.exports = {
                     maxClimb,
                     minClimb,
                     maxSpeed,
-                    avgSpeedCourse
+                    avgSpeedCourse,
+                    link,
                 }
             })
         }
