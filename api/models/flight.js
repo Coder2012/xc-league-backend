@@ -28,6 +28,7 @@ const flightSchema = mongoose.Schema({
     maxSpeed: Number,
     avgSpeedCourse: Number,
     avgSpeedTrack: Number,
+    link: String
 });
 
 // flightSchema.set('autoIndex', false);
