@@ -1,10 +1,16 @@
-const stream = require('stream');
-const mongoose = require("mongoose");
+const fs = require("fs");
 const excel = require('node-excel-export');
 const Flight = require("../models/flight");
 const responses = require("../models/responses");
+const start = require('../../helpers/pup');
 
 let data = null;
+
+exports.scrapeLatest = (req, res, next) => {
+  if(start()){
+    res.status(200).send(`Generating flights-latest`);
+  }
+}
 
 exports.flights_get_all = (req, res, next) => {
     let options = {
