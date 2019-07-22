@@ -4,7 +4,7 @@ const read = require("./storage");
 
 const start = async () => {
     await read();
-    const flights2019 = require('../tmp/flights-2019.js');
+    const flights2019 = require('/tmp/flights-2019.js');
   console.log(flights2019);
   const browser = await puppeteer.launch({ pipe: true });
   const page = await browser.newPage();
@@ -65,14 +65,14 @@ const start = async () => {
   console.log('flights', data.flights);
 
   try {
-    if (!fs.existsSync('tmp')){
-      fs.mkdirSync('tmp');
+    if (!fs.existsSync('/tmp')){
+      fs.mkdirSync('/tmp');
     }
   } catch (err) {
     console.error(err)
   }
 
-  const file = fs.createWriteStream('tmp/flights-latest.js')
+  const file = fs.createWriteStream('/tmp/flights-latest.js')
   file.on('error', function(err) { console.log('error writing log') })
   file.write('const flights = [')
   data.flights.forEach(function(flight) { file.write(`"${flight}",\n`) })
