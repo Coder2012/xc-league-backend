@@ -1,4 +1,3 @@
-const fs = require("fs");
 const excel = require('node-excel-export');
 const Flight = require("../models/flight");
 const responses = require("../models/responses");
