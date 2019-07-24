@@ -4,6 +4,7 @@ const bot = require('./bot');
 
 const start = async () => {
   const flights2019 = await read();
+  return;
   const browser = await puppeteer.launch({ pipe: true });
   const page = await browser.newPage();
   
