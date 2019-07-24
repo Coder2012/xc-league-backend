@@ -4,8 +4,11 @@ const bot = require('./bot');
 
 const start = async () => {
   const flights2019 = await read();
-  const browser = await puppeteer.launch({ pipe: true });
+  console.log('flights read')
+  const browser = await puppeteer.launch();
+  console.log('browser ready')
   const page = await browser.newPage();
+  console.log('new page')
   
   page.on('console', log => console[log._type](log._text));
 
