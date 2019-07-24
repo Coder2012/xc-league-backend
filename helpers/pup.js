@@ -4,11 +4,13 @@ const bot = require('./bot');
 
 const start = async () => {
   const flights2019 = await read();
-  console.log('flights read')
-  const browser = await puppeteer.launch();
-  console.log('browser ready')
+  const browser = await puppeteer.launch({
+    'args' : [
+      '--no-sandbox',
+      '--disable-setuid-sandbox'
+    ]
+  });
   const page = await browser.newPage();
-  console.log('new page')
   
   page.on('console', log => console[log._type](log._text));
 
@@ -61,7 +63,7 @@ const start = async () => {
   }
 
   browser.close();
-  console.log('flights', data.flights.length);
+  console.log('Ready to scrape: ', data.flights.length);
 
   bot(data.flights);
 

@@ -23,7 +23,6 @@ const read = async () => {
     }
 
     rl.on("line", function(line) {
-      console.log(line);
       urls.push(line);
     }).on("close", function() {
       console.log("closed stream", urls.length);
