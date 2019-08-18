@@ -53,7 +53,9 @@ const start = async () => {
         );
 
         for (const link of links) {
-          if (!exists(link, flights2019)) data.flights.push(link.href);
+          // console.log(`find: ${link.href}`);
+          // console.log(`file: ${flights2019[0]}`);
+          if (!exists(link.href, flights2019)) data.flights.push(link.href);
         }
         return data;
       },
@@ -64,6 +66,7 @@ const start = async () => {
 
   browser.close();
   console.log('Ready to scrape: ', data.flights.length);
+  // console.log(JSON.stringify(data.flights));
 
   bot(data.flights);
 
