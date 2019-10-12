@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "https://www.xcleague.net,https://xcleague.net");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -38,6 +38,12 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://domain1.com,http://domain2.com");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
+// });
 
 // Routes which should handle requests
 app.use("/products", productRoutes);
