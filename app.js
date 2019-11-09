@@ -10,10 +10,9 @@ const userRoutes = require('./api/routes/user');
 const flightRoutes = require('./api/routes/flights');
 
 const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
+const url = process.env.MONGODB_ATLAS_PWD ? `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true` : `mongodb://localhost:27017`;
 
-mongoose.connect(
-  `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true`
-);
+mongoose.connect(url);
 
 mongoose.connection.on('error', function(err) {
   console.error('MongoDB Connection Error: ', err);
@@ -26,8 +25,10 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const domain = process.env.MONGODB_ATLAS_PWD ? "https://www.xcleague.net" : "http://localhost:3001";
+
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://www.xcleague.net");
+  res.header("Access-Control-Allow-Origin", domain);
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
