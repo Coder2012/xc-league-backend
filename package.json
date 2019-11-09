@@ -1,7 +1,7 @@
 {
-  "name": "rest-shop",
+  "name": "xc-league-backend",
   "version": "1.0.0",
-  "description": "A Node.js RESTful API Tutorial Project (Build a simple shop API)",
+  "description": "NodeJS API for xcleague.net",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
