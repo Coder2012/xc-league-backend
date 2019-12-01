@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const moment = require('moment');
 const EventEmitter = require('events');
 
-const STATUS_CODES = http.STATUS_CODES, regex = /\d+/g;
+const STATUS_CODES = http.STATUS_CODES, regex = /\d+/;
 
 let id = '';
 
