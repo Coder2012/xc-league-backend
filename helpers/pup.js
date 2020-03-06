@@ -3,7 +3,7 @@ const read = require('./storage');
 const bot = require('./bot');
 
 const start = async () => {
-  const flights2019 = await read();
+  const flights2019 = [];// await read();
   const browser = await puppeteer.launch({
     'args' : [
       '--no-sandbox',
@@ -14,7 +14,7 @@ const start = async () => {
   
   page.on('console', log => console[log._type](log._text));
 
-  await page.goto('http://xcleague.com/xc/leagues/view-1.html');
+  await page.goto('http://xcleague.com/xc/leagues/view-1.html?vx=2');
   let data = {
     flights: [],
     pages: []
