@@ -2,5 +2,6 @@ node_modules
 nodemon.json
 uploads
 .env
+env
 tmp
 storage
