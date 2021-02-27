@@ -18,8 +18,6 @@ exports.flights_get_all = (req, res, next) => {
         limit: parseInt(req.body.limit),
     };
 
-    console.log(req.body);
-
     let query = {};
 
     if(req.body.pilot) query.pilot = req.body.pilot;
@@ -33,7 +31,7 @@ exports.flights_get_all = (req, res, next) => {
         // let flights = responses[type](result);
         let flights = responses[type](result);
         data = flights.flights;
-        console.log(data);
+
         res.status(200).json({
             flightData: flights,
             pages: result.pages,
@@ -48,7 +46,6 @@ exports.flights_get_all = (req, res, next) => {
 
 exports.flights_get_date = (req, res, next) => {
     let date = req.body.date;
-    console.log('date',date)
 
     let options = {
         sort: { score: -1 },
@@ -97,7 +94,6 @@ exports.flights_get_flight = (req, res, next) => {
         .select("identifier pilot")
         .exec()
         .then(doc => {
-            console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
                     flights: doc,
@@ -121,7 +117,6 @@ exports.flights_get_flight = (req, res, next) => {
 exports.get_pilots = (req, res, next) => {
     Flight.find({}).distinct('pilot', (err, pilots) => 
     {
-        console.log(pilots);
         res.status(200).json({
             pilots: pilots
         })
@@ -270,7 +265,6 @@ exports.get_pilots = (req, res, next) => {
     }
 
 exports.generate_report = (req, res, next) => {
-    console.log('data', data);
     const report = excel.buildExport(
         [ // <- Notice that this is an array. Pass multiple sheets to create multi sheet report
           {

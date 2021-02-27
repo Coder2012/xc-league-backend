@@ -10,7 +10,7 @@ const userRoutes = require('./api/routes/user');
 const flightRoutes = require('./api/routes/flights');
 
 const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
-const url = process.env.MONGODB_ATLAS_PWD ? `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true` : `mongodb://localhost:27017`;
+const url = process.env.MONGODB_ATLAS_PWD ? `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true` : `mongodb://mongodb:27017/?authSource=admin`;
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useUnifiedTopology", true);
