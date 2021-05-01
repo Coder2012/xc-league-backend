@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const cheerio = require('cheerio');
 const moment = require('moment');
 const EventEmitter = require('events');
@@ -53,7 +53,7 @@ class Scraper {
         id = this.url.match(regex)[0];
         console.log("id: ", id);
         
-        http.get(this.url, (res) => {
+        https.get(this.url, (res) => {
             var body = '';
             if (res.statusCode !== 200) {
                 return this.eventEmitter.emit('error', STATUS_CODES[res.statusCode]);
