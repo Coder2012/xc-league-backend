@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const read = require('./storage');
 const bot = require('./bot');
 
-const start = async () => {
+const start = async (year) => {
   const flights2019 = [];// await read();
   const browser = await puppeteer.launch({
     'args' : [
@@ -14,7 +14,7 @@ const start = async () => {
   
   page.on('console', log => console[log._type](log._text));
 
-  await page.goto('https://xcleague.com/xc/leagues/2020-1.html?vx=2');
+  await page.goto(`http://xcleague.com/xc/leagues/${year}-1.html?vx=2`);
   let data = {
     flights: [],
     pages: []

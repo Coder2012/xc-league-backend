@@ -6,8 +6,9 @@ const start = require('../../helpers/pup');
 let data = null;
 
 exports.scrapeLatest = (req, res, next) => {
-  if(start()){
-    res.status(200).send(`Generating flights-latest`);
+  const year = req.query.year || 'view';
+  if(start(year)){
+    res.status(200).send(`Generating flights-latest for : ${year}`);
   }
 }
 
