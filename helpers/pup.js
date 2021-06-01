@@ -14,7 +14,7 @@ const start = async () => {
   
   page.on('console', log => console[log._type](log._text));
 
-  await page.goto('https://xcleague.com/xc/leagues/view-1.html?vx=2');
+  await page.goto('https://xcleague.com/xc/leagues/2020-1.html?vx=2');
   let data = {
     flights: [],
     pages: []
