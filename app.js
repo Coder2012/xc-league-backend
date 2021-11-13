@@ -6,29 +6,33 @@ const mongoose = require("mongoose");
 
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
-const userRoutes = require('./api/routes/user');
-const flightRoutes = require('./api/routes/flights');
+const userRoutes = require("./api/routes/user");
+const flightRoutes = require("./api/routes/flights");
 
 const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
-const url = process.env.MONGODB_ATLAS_PWD ? `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true` : `mongodb://mongodb:27017/?authSource=admin`;
+const url = process.env.MONGODB_ATLAS_PWD
+  ? `mongodb://nebrown:${pwd}@paragliding-nodejs-shard-00-00-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-01-ocmr9.mongodb.net:27017,paragliding-nodejs-shard-00-02-ocmr9.mongodb.net:27017/test?ssl=true&replicaSet=paragliding-nodejs-shard-0&authSource=admin&retryWrites=true`
+  : `mongodb://mongodb:27017/?authSource=admin`;
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useUnifiedTopology", true);
-mongoose.set('useCreateIndex', true);
+mongoose.set("useCreateIndex", true);
 mongoose.connect(url);
 
-mongoose.connection.on('error', function(err) {
-  console.error('MongoDB Connection Error: ', err);
+mongoose.connection.on("error", function (err) {
+  console.error("MongoDB Connection Error: ", err);
 });
 
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const domain = process.env.MONGODB_ATLAS_PWD ? "https://www.xcleague.net" : "http://localhost:3001";
+const domain = process.env.MONGODB_ATLAS_PWD
+  ? "https://www.xcleague.net"
+  : "http://localhost:3001";
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", domain);
@@ -49,6 +53,19 @@ app.use((req, res, next) => {
 //   next();
 // });
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested, Content-Type, Accept Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "POST, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
+
 // Routes which should handle requests
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
@@ -65,8 +82,8 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
     error: {
-      message: error.message
-    }
+      message: error.message,
+    },
   });
 });
 
