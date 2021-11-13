@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -34,18 +35,7 @@ const domain = process.env.MONGODB_ATLAS_PWD
   ? "https://www.xcleague.net"
   : "http://localhost:3001";
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", domain);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-  next();
-});
+app.use(cors());
 
 // app.all('/*', function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "http://domain1.com,http://domain2.com");
