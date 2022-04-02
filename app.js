@@ -5,9 +5,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const productRoutes = require("./api/routes/products");
-const orderRoutes = require("./api/routes/orders");
-const userRoutes = require("./api/routes/user");
 const flightRoutes = require("./api/routes/flights");
 
 const pwd = encodeURIComponent(process.env.MONGODB_ATLAS_PWD);
@@ -37,18 +34,8 @@ const domain = process.env.MONGODB_ATLAS_PWD
 
 app.use(cors());
 
-// app.all('/*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "http://domain1.com,http://domain2.com");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  // res.header(
-  //   "Access-Control-Allow-Headers",
-  //   "Origin, X-Requested, Content-Type, Accept Authorization"
-  // );
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "POST, GET");
@@ -57,10 +44,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes which should handle requests
-app.use("/products", productRoutes);
-app.use("/orders", orderRoutes);
-app.use("/user", userRoutes);
 app.use("/flights", flightRoutes);
 
 app.use((req, res, next) => {

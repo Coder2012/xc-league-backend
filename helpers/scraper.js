@@ -8,7 +8,6 @@ const STATUS_CODES = https.STATUS_CODES, regex = /\d+/;
 let id = '';
 
 class Scraper {
-    
     constructor(flightUrls) {
         this.eventEmitter = new EventEmitter();
         this.index = 0;
@@ -27,7 +26,7 @@ class Scraper {
         });
     
         this.eventEmitter.on('loadedFlightPage', (html) => {
-            var nextUrl = this.parseFlightPage(html);
+            let nextUrl = this.parseFlightPage(html);
             if (nextUrl !== undefined && nextUrl !== 'undefined') {
                 this.url = nextUrl;
                 this.loadPage('loadedFlightPage');
@@ -54,7 +53,7 @@ class Scraper {
         console.log("id: ", id);
         
         https.get(this.url, (res) => {
-            var body = '';
+            let body = '';
             if (res.statusCode !== 200) {
                 return this.eventEmitter.emit('error', STATUS_CODES[res.statusCode]);
             }
@@ -72,17 +71,17 @@ class Scraper {
     };
     
     parseLeaguePage(html) {
-        var $ = cheerio.load(html);
-        var table = $('#leagueTable');   
-        var rows = table.find('tr');
-        var flights = [];
+        let $ = cheerio.load(html);
+        let table = $('#leagueTable');   
+        let rows = table.find('tr');
+        let flights = [];
     
         rows.each(function(index, el) {
-            var row = $(el);
-            var tds = row.find('td');
-            var flight = tds.eq(6).find('a').eq('1').attr('href');
+            let row = $(el);
+            let tds = row.find('td');
+            let flight = tds.eq(6).find('a').eq('1').attr('href');
     
-            if (flight !== undefined) {
+            if (flight) {
                 flights.push(flight);
             }
         });
@@ -95,14 +94,14 @@ class Scraper {
             return undefined;
         }
     
-        var $ = cheerio.load(html);
+        let $ = cheerio.load(html);
     
         $('#coordinates').remove();
     
-        var pilot = $('.vfPilot').text();
-        var title = $('.vfFlightText').text();
+        let pilot = $('.vfPilot').text();
+        let title = $('.vfFlightText').text();
     
-        var club = '',
+        let club = '',
             glider = '',
             date = '',
             start = '',
@@ -114,12 +113,12 @@ class Scraper {
             multiplier = '',
             score = '';
     
-        var totalCollected = false;
+        let totalCollected = false;
     
         $('.viewRow').each(function(index, el) {
-            var $el = $(el);
-            var label = $el.find('.viewLabel').text();
-            var text = $el.find('.viewText').text();
+            let $el = $(el);
+            let label = $el.find('.viewLabel').text();
+            let text = $el.find('.viewText').text();
     
             switch (label) {
                 case 'Club':
@@ -175,17 +174,17 @@ class Scraper {
         });
     
         // get stats from panel
-        var stats = $('#xcTab-stats-content');
-        var maxHeight = stats.find('#xcTab-stats-height-max').text();
-        var lowHeight = stats.find('#xcTab-stats-height-low').text();
-        var takeoffHeight = stats.find('#xcTab-stats-height-ta').text();
-        var maxClimb = stats.find('#xcTab-stats-climb-max').text();
-        var minClimb = stats.find('#xcTab-stats-climb-min').text();
-        var maxSpeed = stats.find('#xcTab-stats-speed-max').text();
-        var avgSpeedCourse = stats.find('#xcTab-stats-speed-avgCourse').text();
-        var avgSpeedTrack = stats.find('#xcTab-stats-speed-avgCourse').text();
+        let stats = $('#xcTab-stats-content');
+        let maxHeight = stats.find('#xcTab-stats-height-max').text();
+        let lowHeight = stats.find('#xcTab-stats-height-low').text();
+        let takeoffHeight = stats.find('#xcTab-stats-height-ta').text();
+        let maxClimb = stats.find('#xcTab-stats-climb-max').text();
+        let minClimb = stats.find('#xcTab-stats-climb-min').text();
+        let maxSpeed = stats.find('#xcTab-stats-speed-max').text();
+        let avgSpeedCourse = stats.find('#xcTab-stats-speed-avgCourse').text();
+        let avgSpeedTrack = stats.find('#xcTab-stats-speed-avgCourse').text();
     
-        var model = {
+        let model = {
             identifier: id,
             pilot: pilot,
             title: title,

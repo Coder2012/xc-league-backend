@@ -1,9 +1,8 @@
 const puppeteer = require('puppeteer');
-const read = require('./storage');
 const bot = require('./bot');
 
 const start = async (year) => {
-  const flights2019 = [];// await read();
+  const flights = [];
   const browser = await puppeteer.launch({
     'args' : [
       '--no-sandbox',
@@ -21,7 +20,7 @@ const start = async (year) => {
   };
 
   data = await page.evaluate(
-    (data, flights2019) => {
+    (data, flights) => {
       const exists = (link, urls) => urls.some(url => url == link);
       const trs = document.querySelectorAll('#leagueTable tbody tr');
 
@@ -29,9 +28,9 @@ const start = async (year) => {
         let link = tr.querySelector('td:nth-child(9) a').href;
         let viewPage = link.match(/leagues/);
 
-        if (viewPage && viewPage[0] !== null) {
+        if (viewPage?.[0]) {
           data.pages.push(link);
-        } else if (!exists(link, flights2019)) {
+        } else if (!exists(link, flights)) {
           data.flights.push(link);
         }
       }
@@ -39,37 +38,33 @@ const start = async (year) => {
       return data;
     },
     data,
-    flights2019
+    flights
   );
 
   for (const url of data.pages) {
     await page.goto(url);
 
     data = await page.evaluate(
-      (data, flights2019) => {
+      (data, flights) => {
         const exists = (link, urls) => urls.some(url => url == link);
         const links = document.querySelectorAll(
           '#leagueTable [class^=flight] a:first-child'
         );
 
         for (const link of links) {
-          // console.log(`find: ${link.href}`);
-          // console.log(`file: ${flights2019[0]}`);
-          if (!exists(link.href, flights2019)) data.flights.push(link.href);
+          if (!exists(link.href, flights)) data.flights.push(link.href);
         }
         return data;
       },
       data,
-      flights2019
+      flights
     );
   }
 
   browser.close();
-  console.log('Ready to scrape: ', data.flights.length);
-  // console.log(JSON.stringify(data.flights));
+  console.log(`Ready to scrape ${data.flights.length} flights`);
 
   bot(data.flights);
-
 };
 
 module.exports = start;
