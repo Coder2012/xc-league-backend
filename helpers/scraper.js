@@ -8,13 +8,11 @@ const STATUS_CODES = https.STATUS_CODES, regex = /\d+/;
 let id = '';
 
 class Scraper {
-    constructor(flightUrls) {
+    constructor(flightUrls = []) {
         this.eventEmitter = new EventEmitter();
         this.index = 0;
         this.urls = flightUrls;
         this.url = flightUrls[this.index];
-        
-        this.init();
     }
     
     init() {
@@ -69,8 +67,17 @@ class Scraper {
             this.eventEmitter.emit('error', err);
         });
     };
+
+    getLeagueTable() {
+        let flights = [];
+        this.loadPage('loadedLeagueTable');
+        this.EventEmitter.on('loadedLeagueTable', (html) => {
+            flights = this.parseLeagueTable(html);
+        });
+        return flights;
+    }
     
-    parseLeaguePage(html) {
+    parseLeagueTable(html) {
         let $ = cheerio.load(html);
         let table = $('#leagueTable');   
         let rows = table.find('tr');
@@ -79,11 +86,14 @@ class Scraper {
         rows.each(function(index, el) {
             let row = $(el);
             let tds = row.find('td');
-            let flight = tds.eq(6).find('a').eq('1').attr('href');
-    
-            if (flight) {
-                flights.push(flight);
+            let flightData = {
+                pilot: tds.eq(1).text(),
+                club: tds.eq(2).text(),
+                glider: tds.eq(3).text(),
+                score: tds.eq(4).text()
             }
+            tds.eq(6).find('a').eq('1').attr('href');
+            fights.push(flightData);
         });
     
         return flights;

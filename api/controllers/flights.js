@@ -2,8 +2,14 @@ const excel = require('node-excel-export');
 const Flight = require("../models/flight");
 const responses = require("../models/responses");
 const start = require('../../helpers/pup');
+const Scraper = require('../../helpers/scraper');
 
 let data = null;
+
+exports.scrapeLeagueTable = (req, res, next) =>{
+  const scraper = new Scraper();
+  res.status(200).send(scraper.getLeagueTable());
+}
 
 exports.scrapeLatest = (req, res, next) => {
   const year = req.query.year || 'view';

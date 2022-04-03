@@ -3,6 +3,7 @@ const Scraper = require('./scraper.js');
 
 const init = flightUrls => {
   let scraper = new Scraper(flightUrls);
+  scraper.init();
 
   scraper.events.on('error', error => {
     console.log('Scraper error: ', error);
