@@ -6,9 +6,10 @@ const Scraper = require('../../helpers/scraper');
 
 let data = null;
 
-exports.scrapeLeagueTable = (req, res, next) =>{
+exports.scrapeLeagueTable = async (req, res, next) => {
   const scraper = new Scraper();
-  res.status(200).send(scraper.getLeagueTable());
+  const data = await scraper.getLeagueTable();
+  res.status(200).send(data);
 }
 
 exports.scrapeLatest = (req, res, next) => {

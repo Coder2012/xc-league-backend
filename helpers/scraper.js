@@ -69,12 +69,12 @@ class Scraper {
     };
 
     getLeagueTable() {
-        let flights = [];
-        this.loadPage('loadedLeagueTable');
-        this.EventEmitter.on('loadedLeagueTable', (html) => {
-            flights = this.parseLeagueTable(html);
+        return new Promise((resolve, reject) => {
+            this.loadPage('loadedLeagueTable');
+            this.EventEmitter.on('loadedLeagueTable', (html) => {
+                resolve(this.parseLeagueTable(html));
+            });
         });
-        return flights;
     }
     
     parseLeagueTable(html) {
