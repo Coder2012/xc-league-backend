@@ -70,17 +70,17 @@ class Scraper {
 
     getLeagueTable() {
         return new Promise((resolve, reject) => {
-            this.loadPage('loadedLeagueTable');
-            this.EventEmitter.on('loadedLeagueTable', (html) => {
+            this.eventEmitter.on('loadedLeagueTable', (html) => {
                 resolve(this.parseLeagueTable(html));
             });
+            this.loadPage('loadedLeagueTable');
         });
     }
     
     parseLeagueTable(html) {
-        let $ = cheerio.load(html);
-        let table = $('#leagueTable');   
-        let rows = table.find('tr');
+        const $ = cheerio.load(html);
+        const table = $('#leagueTable');   
+        const rows = table.find('tr');
         let flights = [];
     
         rows.each(function(index, el) {
@@ -92,8 +92,9 @@ class Scraper {
                 glider: tds.eq(3).text(),
                 score: tds.eq(4).text()
             }
-            tds.eq(6).find('a').eq('1').attr('href');
-            fights.push(flightData);
+            if(index > 0) {
+                flights.push(flightData);
+            }
         });
     
         return flights;
