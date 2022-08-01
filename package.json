@@ -27,7 +27,7 @@
     "morgan": "^1.10.0",
     "node-excel-export": "^1.4.4",
     "nodemon": "^2.0.7",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^13.3.0"
   },
   "devDependencies": {},
   "snyk": true
