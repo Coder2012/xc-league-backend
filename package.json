@@ -24,7 +24,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.8",
     "mongoose-paginate": "^5.0.3",
-    "morgan": "^1.10.0",
+    "morgan": "^1.10.1",
     "node-excel-export": "^1.4.4",
     "nodemon": "^2.0.7",
     "puppeteer": "^5.5.0"
